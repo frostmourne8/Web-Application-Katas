@@ -1,7 +1,13 @@
 angular.module('services', [])
 
 /**
+ * The current Character using the application.
+ */
+.factory('CurrentCharacter', function() {return new Character("102552080", "Halech", "Arygos-US", "http://us.battle.net/static-render/us/llane/16/102552080-profilemain.jpg");})
+
+/**
  * ItemDataService is required to have these functions:
+ *  -getTypes()
  *  -getIcon(Item.id)
  *  -getInfo(Item.id)
  *  -getDrops(Boss)

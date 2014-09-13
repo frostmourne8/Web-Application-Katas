@@ -1,0 +1,40 @@
+.character_banner {
+    font-family: Quattrocento;
+    color: whitesmoke;
+    padding-top: 70px;
+    text-align: center;
+}
+
+.character_name {
+    font-size: 50px;
+}
+
+.character_server {
+    font-size: 30px;
+}
+
+.profile_image {
+    height: 100%;
+    -webkit-clip-path: circle(250px);
+}
+
+#radial_menu {
+    width: 550px;
+    height: 550px;
+    margin-top: 70px;
+}
+
+.menu_item {
+    height: 1px;
+    width: 1px;
+    overflow: visible;
+    top: 50%;
+}
+
+.menu_item_icon {
+    height: 40px;
+    width: 40px;
+    position: relative;
+    top: -20px;
+    left: -20px; /*Shift image so animations are done using the center of the icon*/
+}

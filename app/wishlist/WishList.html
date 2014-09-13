@@ -1,1 +1,14 @@
-<div>{{ message }}</div>
+<div>
+    <div class="character_banner">
+        <div class="character_name">{{character.name}}</div>
+        <div class="character_server">{{character.server}}</div>
+    </div>
+
+    <div id="radial_menu" class="centered">
+        <div class="profile_image" style="background: url({{character.image}}) center;"></div>
+
+        <div ng-repeat="menuItem in menuItems" class="menu_item centered">
+            <img ng-src="{{menuItem.icon}}" ng-click="menuItem.showSubItems = true"/>
+        </div>
+    </div>
+</div>

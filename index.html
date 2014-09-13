@@ -1,13 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="app">
+
 <head lang="en">
     <meta charset="UTF-8">
-    <title>Hello There Page</title>
+    <title>World of Warcraft Gear Planner</title>
 
-    <script src="libraries/angular.min.js"></script>
+    <!-- TODO: Manage JavaScript loading -->
+
+    <script src="libraries/angular.js"></script>
+    <script src="libraries/angular-animate.js"></script>
+    <script src="libraries/angular-route.js"></script>
+
+    <script src="app/model.js"></script>
+
+    <script src="services/fake-character-data-service.js"></script>
+    <script src="services/fake-item-data-service.js"></script>
+    <script src="services/fake-raid-data-service.js"></script>
+    <script src="services/fake-wishlist-data-service.js"></script>
+    <script src="services/services.js"></script>
+
+    <script src="app/app.js"></script>
+
+    <script src="app/wishlist/wishlist.js"></script>
+    <script src="app/wishlist/wishlist-controller.js"></script>
 </head>
 
 <body>
- <h1>Hello There! With Changes</h1>
+    <div ng-view></div>
 </body>
+
 </html>

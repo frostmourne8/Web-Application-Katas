@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('WishListController', function($scope, CurrentCharacter, WishListDataService, ItemDataService) {
+.controller('WishListController', function($scope, $timeout, CurrentCharacter, WishListDataService, ItemDataService) {
 
     $scope.character = CurrentCharacter;
     $scope.menuItems = createMenuItems();

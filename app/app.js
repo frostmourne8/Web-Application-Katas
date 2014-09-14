@@ -1,4 +1,4 @@
-angular.module('app', ['services', 'ngRoute', 'ngAnimate'])
+angular.module('app', ['ngRoute', 'services', 'WishList'])
 .config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.

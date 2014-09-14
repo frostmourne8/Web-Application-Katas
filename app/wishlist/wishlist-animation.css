@@ -1,0 +1,16 @@
+.menu_item.animated {
+    transition: transform 1.5s ease;
+    transform: rotate(90deg) translateX(-285px) rotate(-90deg);
+}
+
+.sub_menu_item.animated {
+    transition: transform .5s ease, opacity .5s;
+}
+
+.menu_item_icon {
+    transition: height 0.5s, width 0.5s;
+}
+
+.menu_item_icon:hover {
+    transform: scale(1.2);
+}

@@ -1,8 +1,12 @@
 angular.module('app')
-.controller('WishListController', function($scope, $timeout, CurrentCharacter, WishListDataService, ItemDataService) {
+.controller('WishListController', function($scope, CurrentCharacter, WishListDataService, ItemDataService) {
 
     $scope.character = CurrentCharacter;
     $scope.menuItems = createMenuItems();
+
+    $scope.menuItemClicked = function(menuItem) {
+      alert('Selected my ' + menuItem.itemType.name);
+    }
 
     function createMenuItems() {
         var wishlist = WishListDataService.getWishList(CurrentCharacter);
@@ -13,23 +17,27 @@ angular.module('app')
             var itemType = itemTypes[i];
             var wishListItem = wishlist.getItemForType(itemType);
 
-            if(wishListItem) {menuItems.push(createWishListItemMenuItem(wishListItem));}
-            else {menuItems.push(createItemTypeMenuItem(itemType));}
+            if(wishListItem) {
+                var alternates = wishlist.getAlternatesForType(itemType);
+                menuItems.push(createWishListItemMenuItem(wishListItem, alternates));
+            } else {menuItems.push(createItemTypeMenuItem(itemType));}
         }
 
         return menuItems;
     }
 
     function createItemTypeMenuItem(itemType) {
-        return new MenuItem(itemType.icon);
+        return new MenuItem(itemType);
     }
 
-    function createWishListItemMenuItem(item) {
-        return new MenuItem(ItemDataService.getIcon(item.id));
+    function createWishListItemMenuItem(item, alternates) {
+        return new MenuItem(item.type, item);
     }
 
-    function MenuItem(icon) {
-        this.icon = icon;
-        this.showSubItems = false;
+    function MenuItem(itemType, item) {
+        this.itemType = itemType;
+        this.item = item;
+
+        this.icon = item ? ItemDataService.getIcon(item.id) : itemType.icon;
     }
 });

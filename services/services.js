@@ -7,6 +7,7 @@ angular.module('services', [])
 
 /**
  * ItemDataService is required to have these functions:
+ *  -getAllItems();
  *  -getTypes()
  *  -getIcon(Item.id)
  *  -getInfo(Item.id)

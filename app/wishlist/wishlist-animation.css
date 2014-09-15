@@ -10,3 +10,15 @@
 .menu_item_icon:hover {
     transform: scale(1.2);
 }
+
+.item_info.ng-hide-add,
+.item_info.ng-hide-remove {
+    transition:all 0.5s linear;
+
+    display:block!important;
+    opacity:1;
+}
+
+.item_info.ng-hide {
+    opacity:0;
+}

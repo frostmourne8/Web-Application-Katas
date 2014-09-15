@@ -22,6 +22,7 @@
     width: 550px;
     height: 550px;
     margin-top: 70px;
+    position: relative;
 }
 
 .menu_item {
@@ -37,4 +38,44 @@
     position: relative;
     top: -20px;
     left: -20px; /*Shift image so animations are done using the center of the icon*/
+}
+
+.item_select_container {
+    position: relative;
+    margin: auto;
+    width: 100%;
+    bottom: 170px;
+}
+
+.item_selection {
+    margin: auto;
+    height: 64px;
+    width: 385px;
+}
+
+.item_icon {
+    width: 50px;
+    float: left;
+    margin-right: 5px;
+}
+
+.item_icon img {
+    height: 50px;
+}
+
+.item_selection input {
+    width: calc(100% - 55px);
+    height: 48px;
+    float: left;
+    font-size: 24px;
+}
+
+.item_info {
+    height: 200px;
+    width: 300px;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: blue;
+    opacity: 1;
 }

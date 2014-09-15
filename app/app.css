@@ -18,3 +18,8 @@ body, html {
 .circle {
     border-radius: 50%;
 }
+
+.view_container {
+    min-width: 1150px;
+    min-height: 875px;
+}

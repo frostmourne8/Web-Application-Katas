@@ -8,7 +8,30 @@
         <div class="profile_image" style="background: url({{character.image}}) center;"></div>
 
         <div ng-repeat="menuItem in menuItems" class="menu_item centered menu_item_animation" open-on-load="">
-            <img ng-src="{{menuItem.icon}}" ng-click="menuItemClicked(menuItem)" class="menu_item_icon circle"/>
+            <img ng-src="{{menuItem.icon}}"
+                 ng-click="menuItemClicked(menuItem);$event.stopPropagation();"
+                 ng-mouseover="menuItemMouseOver(menuItem)"
+                 ng-mouseout="menuItemMouseOut()"
+                 class="menu_item_icon circle"/>
         </div>
+
+        <div ng-show="selectedItemType" class="item_select_container">
+            <div class="item_selection">
+                <div class="item_icon">
+                    <img ng-if="selectedItem" ng-src="{{selectedItem.icon}}" class="item_icon"/>
+                    <img ng-if="!selectedItem" src="images/items/unknown_item.png"/>
+                </div>
+
+                <input type="text" ng-model="itemName"
+                       ng-change="itemSelected()"
+                       typeahead="item.name for item in items | filter:$viewValue | limitTo:5"
+                       typeahead-editable="false"
+                       class="form-control">
+            </div>
+        </div>
+    </div>
+
+    <div ng-show="hoveredItem" class="item_info">
+        An item tooltip
     </div>
 </div>

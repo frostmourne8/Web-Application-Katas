@@ -1,5 +1,5 @@
 (function() {
-angular.module("WishList", [])
+angular.module("WishList", ['ui.bootstrap', 'ngAnimate'])
     .directive('openOnLoad', function($timeout) {
         return function($scope, element) {
             var angle = getAngleForItem($scope);

@@ -3,9 +3,32 @@ angular.module('app')
 
     $scope.character = CurrentCharacter;
     $scope.menuItems = createMenuItems();
+    $scope.items = ItemDataService.getAllItems();
+
+    $scope.selectedItem = undefined;
+    $scope.selectedItemType = undefined;
+    $scope.hoveredItem = undefined;
 
     $scope.menuItemClicked = function(menuItem) {
-      alert('Selected my ' + menuItem.itemType.name);
+      if(menuItem.itemType === $scope.selectedItemType) {
+          $scope.selectedItemType = undefined;
+          $scope.selectedItemType = undefined;
+      } else {
+          $scope.selectedItemType = menuItem.item;
+          $scope.selectedItemType = menuItem.itemType;
+      }
+    }
+
+    $scope.menuItemMouseOver = function(menuItem) {
+        $scope.hoveredItem = menuItem;
+    }
+
+    $scope.menuItemMouseOut = function() {
+        $scope.hoveredItem = undefined;
+    }
+
+    $scope.itemSelected = function() {
+        alert("Selected an item: " + $scope.itemName);
     }
 
     function createMenuItems() {

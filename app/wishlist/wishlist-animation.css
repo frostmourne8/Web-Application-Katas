@@ -11,6 +11,18 @@
     transform: scale(1.2);
 }
 
+.item_select_container.ng-hide-add,
+.item_select_container.ng-hide-remove {
+    transition:all 0.5s linear;
+
+    display:block!important;
+    opacity:1;
+}
+
+.item_select_container.ng-hide {
+    opacity:0;
+}
+
 .item_info.ng-hide-add,
 .item_info.ng-hide-remove {
     transition:all 0.5s linear;

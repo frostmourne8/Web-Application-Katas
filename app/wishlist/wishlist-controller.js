@@ -3,20 +3,28 @@ angular.module('app')
 
     $scope.character = CurrentCharacter;
     $scope.menuItems = createMenuItems();
-    $scope.items = ItemDataService.getAllItems();
 
-    $scope.selectedItem = undefined;
-    $scope.selectedItemType = undefined;
+    $scope.selectedMenuItem = undefined;
     $scope.hoveredItem = undefined;
+    $scope.newItemMatch = undefined;
+
+    $scope.itemSelected = function(item) {
+        $scope.newItemMatch = item;
+        $scope.selectedMenuItem.setItem(item);
+    }
+
+    $scope.itemSelectTextChanged = function(itemName) {
+        $scope.newItemMatch = $scope.potentialNewItemIndex[itemName];
+    }
+
+    $scope.getItemIcon = function(item) {
+        return ItemDataService.getIcon(item.id);
+    }
 
     $scope.menuItemClicked = function(menuItem) {
-      if(menuItem.itemType === $scope.selectedItemType) {
-          $scope.selectedItemType = undefined;
-          $scope.selectedItemType = undefined;
-      } else {
-          $scope.selectedItemType = menuItem.item;
-          $scope.selectedItemType = menuItem.itemType;
-      }
+        var previousItem = $scope.selectedMenuItem;
+        deselectMenuItem();
+        if(menuItem != previousItem) {selectMenuItem(menuItem);}
     }
 
     $scope.menuItemMouseOver = function(menuItem) {
@@ -27,8 +35,31 @@ angular.module('app')
         $scope.hoveredItem = undefined;
     }
 
-    $scope.itemSelected = function() {
-        alert("Selected an item: " + $scope.itemName);
+    function indexItems(items) {
+        var index = {}
+        for(var i = 0;i < items.length;i++) {
+            var item = items[i];
+            index[item.name] = item;
+        }
+
+        return index;
+    }
+
+    function selectMenuItem(menuItem) {
+        $scope.selectedMenuItem = menuItem;
+        $scope.potentialNewItems = ItemDataService.getItemsOfType(menuItem.itemType);
+        $scope.potentialNewItemIndex = indexItems($scope.potentialNewItems);
+
+        if(menuItem.item) {
+            $scope.newItemName = menuItem.item.name;
+            $scope.newItemMatch = menuItem.item;
+        }
+    }
+
+    function deselectMenuItem() {
+        $scope.selectedMenuItem = undefined;
+        $scope.newItemMatch = undefined;
+        $scope.newItemName = undefined;
     }
 
     function createMenuItems() {
@@ -59,8 +90,13 @@ angular.module('app')
 
     function MenuItem(itemType, item) {
         this.itemType = itemType;
-        this.item = item;
+        this.icon = itemType.icon;
 
-        this.icon = item ? ItemDataService.getIcon(item.id) : itemType.icon;
+        if(item) {this.setItem(item);}
+    }
+
+    MenuItem.prototype.setItem = function(item) {
+        this.item = item;
+        this.icon = $scope.getItemIcon(item);
     }
 });

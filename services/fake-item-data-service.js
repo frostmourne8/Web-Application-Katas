@@ -38,11 +38,10 @@ function FakeItemDataService() {
         ];
     }
 
-    this.getAllItems = function() {
-        var types = this.getTypes();
+    this.getItemsOfType = function(itemType) {
         var items = [];
-        for(var i = 0;i < types.length;i++) {
-            items.push(createFakeItem(types[i]));
+        for(var i = 0;i < 5;i++) {
+            items.push(createFakeItem(itemType, i));
         }
 
         return items;
@@ -117,9 +116,9 @@ function FakeItemDataService() {
         }
     }
 
-    function createFakeItem(itemType) {
-        var id = 'fake' + itemType.name + 'id';
-        var name = 'Fake' + itemType.name;
+    function createFakeItem(itemType, index) {
+        var name = 'Fake' + itemType.name + ' ' + index;
+        var id = name + 'id';
 
         return new Item(id, name, itemType);
     }

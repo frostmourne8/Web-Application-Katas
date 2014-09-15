@@ -7,10 +7,10 @@ angular.module('services', [])
 
 /**
  * ItemDataService is required to have these functions:
- *  -getAllItems();
  *  -getTypes()
  *  -getIcon(Item.id)
  *  -getInfo(Item.id)
+ *  -getItemsOfType(ItemType)
  *  -getDrops(Boss)
  */
  .factory('ItemDataService', function() {return new FakeItemDataService();})

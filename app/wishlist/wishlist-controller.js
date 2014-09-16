@@ -17,15 +17,15 @@ angular.module('app')
 
     $scope.itemSelectTextChanged = function(itemName) {
         var newItem = $scope.potentialNewItemIndex[itemName];
-        if(!newItem) {return;}
-
-        ItemDataService.getInfo(newItem, function(itemInfo) {
-            $scope.newItemMatch = itemInfo;
-        });
+        if(newItem) {
+            ItemDataService.getInfo(newItem, function(itemInfo) {
+                $scope.newItemMatch = itemInfo;
+            });
+        } else {$scope.newItemMatch = undefined;}
     };
 
     $scope.getItemIcon = function(item) {
-        return ItemDataService.getIcon(item.id);
+        return ItemDataService.getIcon(item);
     };
 
     $scope.menuItemClicked = function(menuItem) {

@@ -47,13 +47,14 @@ function BattleNetItemDataService($http) {
         return 'http://media.blizzard.com/wow/icons/56/' + item.icon + '.jpg';
     };
 
+    //, {headers: {'X-Originating-Ip': ': 24.211.224.221'}}
     this.getInfo = function(item, callback) {
-        var url = BASE_API_URL + item.id + "?apikey=" + API_KEY;
-        $http({method: 'GET', url: url}).success(callback);
+        var url = BASE_API_URL + item.id + "?apikey=" + API_KEY + "&jsonp=JSON_CALLBACK";
+        $http.jsonp(url).success(callback);
     };
 
     this.getItemsOfType = function(itemType) {
-        return itemIndex[itemType];
+        return itemIndex[itemType.id];
     };
 
     this.getDrops = function(boss) {
@@ -81,10 +82,10 @@ function BattleNetItemDataService($http) {
     function indexItems(items) {
         for(var i = 0;i < items.length;i++) {
             var item = items[i];
-            var typeItems = itemIndex[item.type];
+            var typeItems = itemIndex[item.type.id];
 
             if(typeItems) {typeItems.push(item);}
-            else {itemIndex[item.type] = [item];}
+            else {itemIndex[item.type.id] = [item];}
         }
     }
 

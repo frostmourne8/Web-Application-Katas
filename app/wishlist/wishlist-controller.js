@@ -30,44 +30,26 @@ angular.module('app')
 
     $scope.menuItemClicked = function(menuItem) {
         var previousItem = $scope.selectedMenuItem;
+
         deselectMenuItem();
         if(menuItem != previousItem) {selectMenuItem(menuItem);}
     };
 
     $scope.menuItemMouseOver = function(menuItem) {
         $scope.hoveredItem = menuItem.item;
+        menuItem.highlight = true;
     };
 
-    $scope.menuItemMouseOut = function() {
+    $scope.menuItemMouseOut = function(menuItem) {
         $scope.hoveredItem = undefined;
+
+        if(menuItem !== $scope.selectedMenuItem) {
+            menuItem.highlight = false;
+        }
     };
 
     $scope.getItemInfoPane = function(item) {
-        if(!item) {return "<span>No item selected.</span>";}
-
-        var params = {
-            host: 'us.battle.net',
-            itemId: item.id,
-            lang: 'en',
-            locale: 'en_US',
-            region: 'us'
-        };
-
-        var module = "wow.item";
-        var prepareDataFunc = DarkTip.read(module, 'prepareData');
-        var data = prepareDataFunc({data: {item: item}});
-
-        var enhanceDataFunc = DarkTip.read(module, 'enhanceData');
-        data = enhanceDataFunc(module, params, data);
-
-        var width = DarkTip.read(module, 'layout.width.core');
-
-        var content = DarkTip.jq.jqote(
-            DarkTip.read(module, 'templates.core'),
-            DarkTip.jq.extend(true, {}, DarkTip.getTemplateTools(module, 'en-US'), data)
-        );
-
-        return content;
+        return ItemDataService.getItemInfoPane(item);
     };
 
     function indexItems(items) {
@@ -81,6 +63,7 @@ angular.module('app')
     }
 
     function selectMenuItem(menuItem) {
+        menuItem.highlight = true;
         $scope.selectedMenuItem = menuItem;
         $scope.potentialNewItems = ItemDataService.getItemsOfType(menuItem.itemSlot.type);
         $scope.potentialNewItemIndex = indexItems($scope.potentialNewItems);
@@ -92,6 +75,10 @@ angular.module('app')
     }
 
     function deselectMenuItem() {
+        if($scope.selectedMenuItem) {
+            $scope.selectedMenuItem.highlight = false;
+        }
+
         $scope.selectedMenuItem = undefined;
         $scope.newItemMatch = undefined;
         $scope.newItemName = undefined;

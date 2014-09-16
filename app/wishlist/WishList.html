@@ -7,11 +7,11 @@
     <div id="radial_menu" class="centered">
         <div class="profile_image" style="background: url({{character.image}}) center;"></div>
 
-        <div ng-repeat="menuItem in menuItems" class="menu_item centered menu_item_animation" open-on-load="">
+        <div ng-repeat="menuItem in menuItems" class="menu_item centered menu_item_animation" ng-class="{highlight: menuItem.highlight}" open-on-load="">
             <img ng-src="{{menuItem.icon}}"
                  ng-click="menuItemClicked(menuItem);$event.stopPropagation();"
-                 ng-mouseover="menuItemMouseOver(menuItem)"
-                 ng-mouseout="menuItemMouseOut()"
+                 ng-mouseenter="menuItemMouseOver(menuItem)"
+                 ng-mouseleave="menuItemMouseOut(menuItem)"
                  class="menu_item_icon circle"/>
         </div>
 
@@ -26,6 +26,7 @@
                        ng-change="itemSelectTextChanged(newItemName)"
                        typeahead-on-select="itemSelected($item)"
                        typeahead="item.name for item in potentialNewItems | filter:$viewValue | limitTo:5"
+                       placeholder="Enter an item name"
                        class="form-control">
             </div>
         </div>

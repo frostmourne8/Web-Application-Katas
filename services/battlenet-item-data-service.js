@@ -62,7 +62,7 @@ function BattleNetItemDataService($http) {
     };
 
     this.getItemInfoPane = function(item) {
-        if(!item) {return "<span>No item selected.</span>";}
+        if(!item) {return "";}
 
         var params = {
             host: 'us.battle.net',

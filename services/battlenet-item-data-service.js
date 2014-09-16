@@ -97,7 +97,7 @@ function BattleNetItemDataService($http) {
     function parseItemsResponse(response) {
         var items = [];
         var lines = response.split('\n');
-        for(var i = 0;i < lines.length;i++) {
+        for(var i = 0;i < lines.length-1;i++) {//Skip the last line.
             items.push(parseItemLine(lines[i]));
         }
 

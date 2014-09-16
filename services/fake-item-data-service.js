@@ -47,8 +47,8 @@ function FakeItemDataService() {
         return items;
     }
 
-    this.getIcon = function(itemId) {
-        return "http://media.blizzard.com/wow/icons/56/inv_gizmo_02.jpg";
+    this.getIcon = function(item) {
+        return 'http://media.blizzard.com/wow/icons/56/' + item.icon + '.jpg';
     }
 
     this.getInfo = function(itemId) {

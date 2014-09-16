@@ -9,34 +9,41 @@ angular.module('app')
     $scope.newItemMatch = undefined;
 
     $scope.itemSelected = function(item) {
-        $scope.newItemMatch = item;
-        $scope.selectedMenuItem.setItem(item);
-    }
+        ItemDataService.getInfo(item, function(itemInfo) {
+            $scope.newItemMatch = itemInfo;
+            $scope.selectedMenuItem.setItem(itemInfo);
+        });
+    };
 
     $scope.itemSelectTextChanged = function(itemName) {
-        $scope.newItemMatch = $scope.potentialNewItemIndex[itemName];
-    }
+        var newItem = $scope.potentialNewItemIndex[itemName];
+        if(!newItem) {return;}
+
+        ItemDataService.getInfo(newItem, function(itemInfo) {
+            $scope.newItemMatch = itemInfo;
+        });
+    };
 
     $scope.getItemIcon = function(item) {
         return ItemDataService.getIcon(item.id);
-    }
+    };
 
     $scope.menuItemClicked = function(menuItem) {
         var previousItem = $scope.selectedMenuItem;
         deselectMenuItem();
         if(menuItem != previousItem) {selectMenuItem(menuItem);}
-    }
+    };
 
     $scope.menuItemMouseOver = function(menuItem) {
         $scope.hoveredItem = menuItem;
-    }
+    };
 
     $scope.menuItemMouseOut = function() {
         $scope.hoveredItem = undefined;
-    }
+    };
 
     function indexItems(items) {
-        var index = {}
+        var index = {};
         for(var i = 0;i < items.length;i++) {
             var item = items[i];
             index[item.name] = item;
@@ -47,7 +54,7 @@ angular.module('app')
 
     function selectMenuItem(menuItem) {
         $scope.selectedMenuItem = menuItem;
-        $scope.potentialNewItems = ItemDataService.getItemsOfType(menuItem.itemType);
+        $scope.potentialNewItems = ItemDataService.getItemsOfType(menuItem.itemSlot.type);
         $scope.potentialNewItemIndex = indexItems($scope.potentialNewItems);
 
         if(menuItem.item) {
@@ -64,34 +71,32 @@ angular.module('app')
 
     function createMenuItems() {
         var wishlist = WishListDataService.getWishList(CurrentCharacter);
-        var itemTypes = ItemDataService.getTypes();
+        var itemSlots = ItemDataService.getItemSlots();
 
         var menuItems = [];
-        for(var i = 0;i < itemTypes.length;i++) {
-            var itemType = itemTypes[i];
-            var wishListItem = wishlist.getItemForType(itemType);
+        for(var i = 0;i < itemSlots.length;i++) {
+            var itemSlot = itemSlots[i];
+            var wishListItem = wishlist.getItemForType(itemSlot.type);
 
             if(wishListItem) {
-                var alternates = wishlist.getAlternatesForType(itemType);
-                menuItems.push(createWishListItemMenuItem(wishListItem, alternates));
-            } else {menuItems.push(createItemTypeMenuItem(itemType));}
+                menuItems.push(createWishListItemMenuItem(itemSlot, wishListItem));
+            } else {menuItems.push(createItemSlotMenuItem(itemSlot));}
         }
 
         return menuItems;
     }
 
-    function createItemTypeMenuItem(itemType) {
-        return new MenuItem(itemType);
+    function createItemSlotMenuItem(itemSlot) {
+        return new MenuItem(itemSlot);
     }
 
-    function createWishListItemMenuItem(item, alternates) {
-        return new MenuItem(item.type, item);
+    function createWishListItemMenuItem(itemSlot, item) {
+        return new MenuItem(itemSlot, item);
     }
 
-    function MenuItem(itemType, item) {
-        this.itemType = itemType;
-        this.icon = itemType.icon;
-
+    function MenuItem(itemSlot, item) {
+        this.itemSlot = itemSlot;
+        this.icon = itemSlot.icon;
         if(item) {this.setItem(item);}
     }
 

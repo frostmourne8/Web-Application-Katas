@@ -7,13 +7,13 @@ angular.module('services', [])
 
 /**
  * ItemDataService is required to have these functions:
- *  -getTypes()
- *  -getIcon(Item.id)
- *  -getInfo(Item.id)
+ *  -getItemSlots()
+ *  -getIcon(Item)
+ *  -getInfo(Item, callback)
  *  -getItemsOfType(ItemType)
  *  -getDrops(Boss)
  */
- .factory('ItemDataService', function() {return new FakeItemDataService();})
+ .factory('ItemDataService', function($http) {return new BattleNetItemDataService($http);})
 
 /**
  * WishListDataService is required to have these functions:

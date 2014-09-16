@@ -1,7 +1,13 @@
 
-function ItemType(name, icon) {
-    this.name = name;
+function ItemType(id, icon) {
+    this.id = id;
     this.icon = icon;
+}
+
+function ItemSlot(name, type) {
+    this.name = name;
+    this.type = type;
+    this.icon = type.icon;
 }
 
 function Item(id, name, type) {

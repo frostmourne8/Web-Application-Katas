@@ -50,6 +50,13 @@
     left: -20px; /*Shift image so animations are done using the center of the icon*/
 }
 
+.collected_menu_item_check {
+    height: 40px;
+    position: absolute;
+    top: -20px;
+    left: -20px;
+}
+
 .item_select_container {
     position: relative;
     margin: auto;
@@ -90,6 +97,17 @@
 
 .new_item_info {
     left: 600px;
+}
+
+.item_selection_button_container {
+    margin-left: 95px;
+    padding-top: 53px;
+}
+
+.collected_btn_check {
+    height: 14px;
+    margin-right: 2px;
+    margin-bottom: 4px;
 }
 
 .darktip-tooltip-wow .darktip-icon {

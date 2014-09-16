@@ -8,11 +8,15 @@
         <div class="profile_image" style="background: url({{character.image}}) center;"></div>
 
         <div ng-repeat="menuItem in menuItems" class="menu_item centered menu_item_animation" ng-class="{highlight: menuItem.highlight}" open-on-load="">
-            <img ng-src="{{menuItem.icon}}"
-                 ng-click="menuItemClicked(menuItem);$event.stopPropagation();"
-                 ng-mouseenter="menuItemMouseOver(menuItem)"
-                 ng-mouseleave="menuItemMouseOut(menuItem)"
-                 class="menu_item_icon circle"/>
+            <div ng-src="{{menuItem.icon}}"
+                ng-click="menuItemClicked(menuItem);$event.stopPropagation();"
+                ng-mouseenter="menuItemMouseOver(menuItem)"
+                ng-mouseleave="menuItemMouseOut(menuItem)">
+
+                <img class="menu_item_icon circle" ng-src="{{menuItem.icon}}"/>
+                <img ng-if="menuItem.isCollected" class="collected_menu_item_check" src="images/checkmark.png"/>
+            </div>
+
         </div>
 
         <div ng-show="selectedMenuItem" class="item_select_container">
@@ -28,6 +32,14 @@
                        typeahead="item.name for item in potentialNewItems | filter:$viewValue | limitTo:5"
                        placeholder="Enter an item name"
                        class="form-control">
+                
+                <div class="item_selection_button_container">
+                    <button ng-click="acceptItemClicked()" type="button" class="btn btn-primary">Accept</button>
+                    <label ng-model="selectedMenuItem.isCollected" ng-click="itemCollectedClicked" type="button" class="btn btn-success" btn-checkbox>
+                        <img ng-if="selectedMenuItem.isCollected" class="collected_btn_check" src="images/checkmark.png"/><span>Collected</span>
+                    </label>
+                    <button ng-click="clearItemClicked()" type="button" class="btn btn-danger">Clear</button>
+                </div>
             </div>
         </div>
 

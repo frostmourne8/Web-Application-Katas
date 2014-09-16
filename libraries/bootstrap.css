@@ -2724,8 +2724,7 @@ select[multiple].input-lg {
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
-.btn:hover,
-.btn:focus {
+.btn:hover {
   color: #333;
   text-decoration: none;
 }
@@ -2793,7 +2792,6 @@ fieldset[disabled] .btn-default.active {
   border-color: #357ebd;
 }
 .btn-primary:hover,
-.btn-primary:focus,
 .btn-primary:active,
 .btn-primary.active,
 .open > .dropdown-toggle.btn-primary {
@@ -2834,7 +2832,6 @@ fieldset[disabled] .btn-primary.active {
   border-color: #4cae4c;
 }
 .btn-success:hover,
-.btn-success:focus,
 .btn-success:active,
 .btn-success.active,
 .open > .dropdown-toggle.btn-success {

@@ -36,6 +36,10 @@ function WishList(character, items, collectedItems) {
         this.collectedItems[item.type] = item;
     }
 
+    this.removeCollectedItem = function(item) {
+        this.collectedItems[item.type] = undefined;
+    }
+
     this.getItemForType = function(itemType) {
         return this.items[itemType];
     }

@@ -3,6 +3,7 @@ angular.module('app')
 
     $scope.character = CurrentCharacter;
     $scope.menuItems = createMenuItems();
+    $scope.wishlist = WishListDataService.getWishList($scope.character);
 
     $scope.selectedMenuItem = undefined;
     $scope.hoveredItem = undefined;
@@ -11,7 +12,6 @@ angular.module('app')
     $scope.itemSelected = function(item) {
         ItemDataService.getInfo(item, function(itemInfo) {
             $scope.newItemMatch = itemInfo;
-            $scope.selectedMenuItem.setItem(itemInfo);
         });
     };
 
@@ -50,6 +50,19 @@ angular.module('app')
 
     $scope.getItemInfoPane = function(item) {
         return ItemDataService.getItemInfoPane(item);
+    };
+
+    $scope.acceptItemClicked = function() {
+        $scope.selectedMenuItem.setItem($scope.newItemMatch);
+    };
+
+    $scope.clearItemClicked = function() {
+        $scope.selectedMenuItem.clearItem();
+    };
+
+    $scope.itemCollectedClicked = function() {
+        var item = $scope.selectedMenuItem.item;
+        $scope.wishlist.addCollectedItem(item);
     };
 
     function indexItems(items) {
@@ -112,11 +125,20 @@ angular.module('app')
     function MenuItem(itemSlot, item) {
         this.itemSlot = itemSlot;
         this.icon = itemSlot.icon;
+        this.isCollected = false;
+
         if(item) {this.setItem(item);}
     }
 
     MenuItem.prototype.setItem = function(item) {
         this.item = item;
+        this.isCollected = $scope.wishlist.isCollected(item);
         this.icon = $scope.getItemIcon(item);
+    }
+
+    MenuItem.prototype.clearItem = function() {
+        this.item = undefined;
+        this.isCollected = false;
+        this.icon = this.itemSlot.icon;
     }
 });

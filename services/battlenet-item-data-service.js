@@ -61,6 +61,34 @@ function BattleNetItemDataService($http) {
         return bossDrops[boss.name];
     };
 
+    this.getItemInfoPane = function(item) {
+        if(!item) {return "<span>No item selected.</span>";}
+
+        var params = {
+            host: 'us.battle.net',
+            itemId: item.id,
+            lang: 'en',
+            locale: 'en_US',
+            region: 'us'
+        };
+
+        var module = "wow.item";
+        var prepareDataFunc = DarkTip.read(module, 'prepareData');
+        var data = prepareDataFunc({data: {item: item}});
+
+        var enhanceDataFunc = DarkTip.read(module, 'enhanceData');
+        data = enhanceDataFunc(module, params, data);
+
+        var width = DarkTip.read(module, 'layout.width.core');
+
+        var content = DarkTip.jq.jqote(
+            DarkTip.read(module, 'templates.core'),
+            DarkTip.jq.extend(true, {}, DarkTip.getTemplateTools(module, 'en-US'), data)
+        );
+
+        return content;
+    };
+
     $http({method: 'GET', url: 'data/ItemIndex.csv'}).
         success(function(data) {
             var items = parseItemsResponse(data);

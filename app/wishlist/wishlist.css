@@ -71,14 +71,24 @@
 }
 
 .item_info {
-    height: 200px;
     width: 300px;
     top: calc(50% - 100px);
     left: -950px;
-    background-color: blue;
     opacity: 1;
+    border-radius: 10px;
 }
 
 .new_item_info {
     left: 600px;
 }
+
+.darktip-tooltip-wow .darktip-icon {
+    margin: 2px;
+}
+
+.darktip-tooltip-wow {
+    background-color: rgba(0,0,0,.85);
+    color: white;
+}
+
+

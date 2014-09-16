@@ -35,11 +35,39 @@ angular.module('app')
     };
 
     $scope.menuItemMouseOver = function(menuItem) {
-        $scope.hoveredItem = menuItem;
+        $scope.hoveredItem = menuItem.item;
     };
 
     $scope.menuItemMouseOut = function() {
         $scope.hoveredItem = undefined;
+    };
+
+    $scope.getItemInfoPane = function(item) {
+        if(!item) {return "<span>No item selected.</span>";}
+
+        var params = {
+            host: 'us.battle.net',
+            itemId: item.id,
+            lang: 'en',
+            locale: 'en_US',
+            region: 'us'
+        };
+
+        var module = "wow.item";
+        var prepareDataFunc = DarkTip.read(module, 'prepareData');
+        var data = prepareDataFunc({data: {item: item}});
+
+        var enhanceDataFunc = DarkTip.read(module, 'enhanceData');
+        data = enhanceDataFunc(module, params, data);
+
+        var width = DarkTip.read(module, 'layout.width.core');
+
+        var content = DarkTip.jq.jqote(
+            DarkTip.read(module, 'templates.core'),
+            DarkTip.jq.extend(true, {}, DarkTip.getTemplateTools(module, 'en-US'), data)
+        );
+
+        return content;
     };
 
     function indexItems(items) {

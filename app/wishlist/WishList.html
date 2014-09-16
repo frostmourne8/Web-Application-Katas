@@ -30,12 +30,19 @@
             </div>
         </div>
 
-        <div ng-show="hoveredItem.item || selectedMenuItem.item" class="item_info centered">
-            An item tooltip
+        <div ng-show="selectedMenuItem.item && (!hoveredItem || hoveredItem === selectedMenuItem.item)"
+             ng-bind-html="getItemInfoPane(selectedMenuItem.item)"
+             class="darktip-tooltip-wow item_info centered">
         </div>
 
-        <div ng-show="newItemMatch" class="item_info centered new_item_info">
-            An item tooltip for the new item
+        <div ng-show="hoveredItem && hoveredItem !== selectedMenuItem.item"
+             ng-bind-html="getItemInfoPane(hoveredItem)"
+             class="darktip-tooltip-wow item_info centered">
+        </div>
+
+        <div ng-show="newItemMatch"
+             ng-bind-html="getItemInfoPane(newItemMatch)"
+             class="darktip-tooltip-wow item_info new_item_info centered">
         </div>
     </div>
 </div>

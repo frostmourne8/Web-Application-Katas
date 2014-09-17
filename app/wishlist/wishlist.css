@@ -16,6 +16,7 @@
 .profile_image {
     height: 100%;
     -webkit-clip-path: circle(250px);
+    clip-path: circle(250px);
 }
 
 #radial_menu {

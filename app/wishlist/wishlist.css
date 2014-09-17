@@ -15,13 +15,12 @@
 
 .profile_image {
     height: 100%;
-    -webkit-clip-path: circle(250px);
-    clip-path: circle(250px);
+    border-radius: 50%;
 }
 
 #radial_menu {
-    width: 550px;
-    height: 550px;
+    width: 515px;
+    height: 515px;
     margin-top: 70px;
     position: relative;
 }
